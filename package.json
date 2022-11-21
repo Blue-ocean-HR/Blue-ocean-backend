@@ -1,6 +1,7 @@
 {
   "scripts": {
     "server": "node server/server.js",
+    "seed": "node db/utils/seed.js",
     "server-dev": "nodemon Blue-ocean-backend server/server.js"
   },
   "dependencies": {
