@@ -1,76 +1,74 @@
+---PANTRY TABLE---
+
 DROP TABLE IF EXISTS pantry cascade;
 
-CREATE TABLE pantry(
-    id BIGSERIAL NOT NULL,
-    user_id BIGINT NOT NULL,
-    pantry_ingredient VARCHAR() NOT NULL,
-    expiry_date BIGINT NOT NULL,
-    category VARCHAR() NOT NULL
+CREATE TABLE pantry (
+    id BIGSERIAL,
+    user_id BIGINT NULL DEFAULT NULL,
+    pantry_ingredient VARCHAR NULL DEFAULT NULL,
+    expiry_date BIGINT NULL DEFAULT NULL,
+    category VARCHAR NULL DEFAULT NULL,
+    PRIMARY KEY (id)
 );
 
-ALTER TABLE
-    pantry ADD PRIMARY KEY(id);
+---FAVORITES TABLE---
 
 DROP TABLE IF EXISTS favorites cascade;
 
 CREATE TABLE favorites(
     id BIGSERIAL NOT NULL,
     recipe_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL
+    user_id BIGINT NOT NULL,
+    PRIMARY KEY(id)
 );
 
-ALTER TABLE
-    favorites ADD PRIMARY KEY(id);
+---USERS TABLE---
 
 DROP TABLE IF EXISTS users cascade;
 
 CREATE TABLE users(
     id BIGSERIAL NOT NULL,
-    email VARCHAR() NOT NULL
+    email VARCHAR NOT NULL,
+    PRIMARY KEY(id)
 );
 
-ALTER TABLE
-    users ADD PRIMARY KEY(id);
+---RECIPES TABLE---
 
 DROP TABLE IF EXISTS recipes cascade;
 
 CREATE TABLE recipes(
     id BIGSERIAL NOT NULL,
-    title VARCHAR() NOT NULL,
+    title VARCHAR NOT NULL,
     recipes_ingredients VARCHAR[] NOT NULL,
     directions VARCHAR[] NOT NULL,
-    link VARCHAR() NOT NULL,
-    source VARCHAR() NOT NULL
+    link VARCHAR NOT NULL,
+    PRIMARY KEY(id)
 );
 
-ALTER TABLE
-    recipes ADD PRIMARY KEY(id);
+COPY recipes (id, title, recipes_ingredients, directions, link)
 
-COPY recipes (id, answer_id, url)
+FROM '/Users/andrewarsenault/Desktop/BOcsvs/recipes1.csv'
 
-FROM '/Users/andrewarsenault/Desktop/BOcsvs/recipes.csv'
+DELIMITER ',' CSV QUOTE '"';
 
-DELIMITER ',' CSV QUOTE '\"';""
+---RECIPE_INGREDIENTS TABLE---
 
 DROP TABLE IF EXISTS recipe_ingredients cascade;
 
 CREATE TABLE recipe_ingredients(
     id BIGSERIAL NOT NULL,
     recipes_id BIGINT NOT NULL,
-    ingredients_name VARCHAR() NOT NULL
+    ingredients_name VARCHAR NOT NULL,
+    PRIMARY KEY(id)
 );
 
-ALTER TABLE
-    recipe_ingredients ADD PRIMARY KEY(id);
-
-COPY recipe_ingredients (id, ingredients_name, recipes_id)
+COPY recipe_ingredients (ingredients_name, recipes_id)
 
 FROM '/Users/andrewarsenault/Desktop/BOcsvs/bo-ingredients.csv'
 
-DELIMITER ',' CSV HEADER QUOTE '\"';""
+DELIMITER ',' CSV HEADER QUOTE '"';
 
-
- ---FK---
+ ---FOREIGN KEYS---
 ALTER TABLE
     pantry ADD CONSTRAINT pantry_user_id_foreign FOREIGN KEY(user_id) REFERENCES users(id);
 ALTER TABLE
@@ -79,3 +77,15 @@ ALTER TABLE
     recipe_ingredients ADD CONSTRAINT recipe_ingredients_recipes_id_foreign FOREIGN KEY(recipes_id) REFERENCES recipes(id);
 ALTER TABLE
     favorites ADD CONSTRAINT favorites_recipe_id_foreign FOREIGN KEY(recipe_id) REFERENCES recipes(id);
+
+-- ---SELECT MAX PKEY---
+-- SELECT setval('favorites_id_seq', COALESCE((SELECT MAX(id)+1 FROM favorites), 1), false);
+
+-- SELECT setval('recipe_ingredients_id_seq', COALESCE((SELECT MAX(id)+1 FROM recipe_ingredients), 1), false);
+
+-- SELECT setval('pantry_id_seq', COALESCE((SELECT MAX(id)+1 FROM pantry), 1), false);
+
+-- SELECT setval('recipes_id_seq', COALESCE((SELECT MAX(id)+1 FROM recipes), 1), false);
+
+-- SELECT setval('users_id_seq', COALESCE((SELECT MAX(id)+1 FROM users), 1), false);
+
