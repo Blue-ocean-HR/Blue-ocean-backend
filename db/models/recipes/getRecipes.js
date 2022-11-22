@@ -14,7 +14,7 @@ const getRecipes = (req, res, next) => {
   let ingredientsText = `${transformedIngredients}`
 
   const getRecipes = {
-    text:   `select
+    text: `select
     json_agg(
       json_build_object(
         'recipe_id',
@@ -84,7 +84,7 @@ const getRecipes = (req, res, next) => {
             recipes_id
         ) as matching
       where
-        array_to_string(match, ',') like all (array[${ingredientsText}])
+        array_to_string(match, ',') like all (array[${ingredientsText}]) limit 10
     )`
   }
 

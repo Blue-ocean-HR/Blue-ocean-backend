@@ -81,10 +81,22 @@ ALTER TABLE
 ALTER TABLE
     favorites ADD CONSTRAINT favorites_recipe_id_foreign FOREIGN KEY(recipe_id) REFERENCES recipes(id);
 
+---EXTENSIONS---
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
 ---INDEXING---
 CREATE INDEX pantry_pantry_ingredient ON pantry (pantry_ingredient);
 CREATE INDEX users_email ON users (email);
-CREATE INDEX recipe_ingredients_ingredients_name ON recipe_ingredients (ingredients_name);
+
+CREATE INDEX IF NOT EXISTS ingredients_name_gist
+    ON public.recipe_ingredients USING gist
+    (ingredients_name COLLATE pg_catalog."default" gist_trgm_ops)
+    INCLUDE(ingredients_name)
+    TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.recipe_ingredients
+    CLUSTER ON ingredients_name_gist;
+
 -- ---SELECT MAX PKEY---
 -- SELECT setval('favorites_id_seq', COALESCE((SELECT MAX(id)+1 FROM favorites), 1), false);
 
