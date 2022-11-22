@@ -47,7 +47,7 @@ CREATE TABLE recipes(
 
 COPY recipes (id, title, recipes_ingredients, directions, link)
 
-FROM '/Users/dianachong/HR/BlueOcean/recipes1.csv'
+FROM '/Users/angelacarrasco/Documents/blue-ocean-data/recipes1.csv'
 
 DELIMITER ',' CSV QUOTE '"';
 
@@ -64,7 +64,7 @@ CREATE TABLE recipe_ingredients(
 
 COPY recipe_ingredients (ingredients_name, recipes_id)
 
-FROM '/Users/dianachong/HR/BlueOcean/bo-ingredients.csv'
+FROM '/Users/angelacarrasco/Documents/blue-ocean-data/bo-ingredients.csv'
 
 DELIMITER ',' CSV HEADER QUOTE '"';
 
