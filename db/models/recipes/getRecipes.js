@@ -3,7 +3,7 @@ const {getRecipesText} = require('../statements/getRecipes.js')
 
 
 const getRecipes = (req, res, next) => {
-  let email = req.query.email
+  let email = req.query.email || 'guest'
   let ingredients = req.body.ingredients
   console.log(req.body)
   let transformedIngredients = ingredients.map(function(string) {
