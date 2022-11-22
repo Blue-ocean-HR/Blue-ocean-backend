@@ -3,13 +3,15 @@ const {getRecipesText} = require('../statements/getRecipes.js')
 
 
 const getRecipes = (req, res, next) => {
-  let email = 'drew'
-  // let ingredients = ['chicken', 'beef']
+  let email = req.query.email
+  let ingredients = req.body.ingredients
+  console.log(req.body)
+  let transformedIngredients = ingredients.map(function(string) {
+    let transformed = `'%${string}%'`
+    return transformed;
+  })
 
-  // let transformedIngredients = ingredients.map(function(string) {
-  //   let transformed = `%${string}%`
-  //   return transformed;
-  // })
+  let ingredientsText = `${transformedIngredients}`
 
   const getRecipes = {
     text:   `select
@@ -37,7 +39,7 @@ const getRecipes = (req, res, next) => {
               from
                 pantry
               where
-                user_id = (select id from users where email = 'drew')
+                user_id = (select id from users where email = '${email}')
                 and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient)
             )
         ),
@@ -55,12 +57,12 @@ const getRecipes = (req, res, next) => {
               from
                 pantry
               where
-                user_id = (select id from users where email = 'drew')
+                user_id = (select id from users where email = '${email}')
                 and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient)
             )
         ),
       'favorited',
-      (select exists(select 1 from favorites where (select id from users where email = 'drew') = 1 and favorites.recipe_id = recipes.id)) --   'favorited', (select column from favorites where recipe_id=recipes.id and user_id = //input//)
+      (select exists(select 1 from favorites where (select id from users where email = '${email}') = 1 and favorites.recipe_id = recipes.id)) --   'favorited', (select column from favorites where recipe_id=recipes.id and user_id = //input//)
         )
     )
   from
@@ -77,12 +79,12 @@ const getRecipes = (req, res, next) => {
           from
             recipe_ingredients
           where
-            ingredients_name like any (array[ '%chicken%', '%beef%' ])
+            ingredients_name like any (array[${ingredientsText}])
           group by
             recipes_id
         ) as matching
       where
-        array_to_string(match, ',') like all (array[ '%chicken%', '%beef%' ])
+        array_to_string(match, ',') like all (array[${ingredientsText}])
     )`
   }
 
