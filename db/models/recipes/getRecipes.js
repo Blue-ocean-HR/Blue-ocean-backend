@@ -13,7 +13,7 @@ const getRecipes = (req, res, next) => {
 
   let ingredientsText = `${transformedIngredients}`
   console.log(ingredientsText)
-  value = [ingredientsText, email]
+
   const getRecipes = {
     text: `select
     json_agg(
@@ -92,6 +92,7 @@ const getRecipes = (req, res, next) => {
   connectionPool
   .query(getRecipes)
   .then((data) => {
+    console.log(data)
     res.send(data.rows)
   })
   .catch((err)=>{

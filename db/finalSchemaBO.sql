@@ -47,7 +47,7 @@ CREATE TABLE recipes(
 
 COPY recipes (id, title, recipes_ingredients, directions, link)
 
-FROM '/Users/youngminko/hackreactor/recipes1.csv'
+FROM '/Users/andrewarsenault/Desktop/BOcsvs/recipes1.csv'
 
 DELIMITER ',' CSV QUOTE '"';
 
@@ -64,7 +64,7 @@ CREATE TABLE recipe_ingredients(
 
 COPY recipe_ingredients (ingredients_name, recipes_id)
 
-FROM '/Users/youngminko/Desktop/bo-ingredients.csv'
+FROM '/Users/andrewarsenault/Desktop/BOcsvs/bo-ingredients.csv'
 
 DELIMITER ',' CSV HEADER QUOTE '"';
 
@@ -93,6 +93,9 @@ CREATE INDEX IF NOT EXISTS ingredients_name_gist
 
 ALTER TABLE IF EXISTS public.recipe_ingredients
     CLUSTER ON ingredients_name_gist;
+
+---INSERT DEFAULT USER---
+INSERT INTO users (email) values ('guest')
 
 -- ---SELECT MAX PKEY---
 -- SELECT setval('favorites_id_seq', COALESCE((SELECT MAX(id)+1 FROM favorites), 1), false);
