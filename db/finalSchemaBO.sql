@@ -78,6 +78,10 @@ ALTER TABLE
 ALTER TABLE
     favorites ADD CONSTRAINT favorites_recipe_id_foreign FOREIGN KEY(recipe_id) REFERENCES recipes(id);
 
+---INDEXING---
+CREATE INDEX pantry_pantry_ingredient ON pantry (pantry_ingredient);
+CREATE INDEX users_email ON users (email);
+CREATE INDEX recipe_ingredients_ingredients_name ON recipe_ingredients (ingredients_name);
 -- ---SELECT MAX PKEY---
 -- SELECT setval('favorites_id_seq', COALESCE((SELECT MAX(id)+1 FROM favorites), 1), false);
 
