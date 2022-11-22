@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
+// recipes
 const getRecipes = require('../../db/models/recipes/getRecipes.js')
+// pantry
 const getItem = require('../../db/models/pantry/getItem.js')
 const addItem = require('../../db/models/pantry/addItem.js')
 const updateItem = require('../../db/models/pantry/updateItem.js')

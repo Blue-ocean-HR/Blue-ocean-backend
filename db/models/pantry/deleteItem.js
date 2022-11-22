@@ -1,12 +1,20 @@
-const connectionPool = require('../../utils/connect.js')
+const connectionPool = require('../../utils/connect.js');
+const {deleteItemStatement} = require('../statements/deleteItem.js');
 
 const deleteItem = (req, res, next) => {
-  let id=req.query.pantryId
-  if (id >= 0) {
-    connectionPool.query(`delete from pantry where id=${id}`)
-    .then((response) => res.send('deleteItem'))
-    .catch((error) => console.log('ERROR: ', error));
+  const deleteItemOption = {
+    text: deleteItemStatement,
+    values: [req.query.id]
   }
+  connectionPool.query(deleteItemOption)
+  .then(data=>{
+    console.log('delete item complete');
+    res.status(201).send('item deleted from pantry');
+  })
+  .catch(err=>{
+    console.log('delete item err')
+    res.status(500).send('invalid id input');
+  })
 }
 
 module.exports = deleteItem

@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS users cascade;
 
 CREATE TABLE users(
     id BIGSERIAL NOT NULL,
-    email VARCHAR NOT NULL,
+    email VARCHAR UNIQUE NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -93,6 +93,9 @@ CREATE INDEX IF NOT EXISTS ingredients_name_gist
 
 ALTER TABLE IF EXISTS public.recipe_ingredients
     CLUSTER ON ingredients_name_gist;
+
+---INSERT DEFAULT USER---
+INSERT INTO users (email) values ('guest')
 
 -- ---SELECT MAX PKEY---
 -- SELECT setval('favorites_id_seq', COALESCE((SELECT MAX(id)+1 FROM favorites), 1), false);

@@ -5,13 +5,14 @@ const {getRecipesText} = require('../statements/getRecipes.js')
 const getRecipes = (req, res, next) => {
   let email = req.query.email || 'guest'
   let ingredients = req.body.ingredients
-  console.log(req.body)
+
   let transformedIngredients = ingredients.map(function(string) {
     let transformed = `'%${string}%'`
     return transformed;
   })
 
   let ingredientsText = `${transformedIngredients}`
+  console.log(ingredientsText)
 
   const getRecipes = {
     text: `select
@@ -40,7 +41,7 @@ const getRecipes = (req, res, next) => {
                 pantry
               where
                 user_id = (select id from users where email = '${email}')
-                and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient)
+                and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient || '%')
             )
         ),
         'ingredientsInPantry',
@@ -58,11 +59,11 @@ const getRecipes = (req, res, next) => {
                 pantry
               where
                 user_id = (select id from users where email = '${email}')
-                and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient)
+                and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient || '%')
             )
         ),
       'favorited',
-      (select exists(select 1 from favorites where (select id from users where email = '${email}') = 1 and favorites.recipe_id = recipes.id)) --   'favorited', (select column from favorites where recipe_id=recipes.id and user_id = //input//)
+      (select exists(select 1 from favorites where (select id from users where email = '${email}') = 1 and favorites.recipe_id = recipes.id))
         )
     )
   from
@@ -81,16 +82,17 @@ const getRecipes = (req, res, next) => {
           where
             ingredients_name like any (array[${ingredientsText}])
           group by
-            recipes_id
+            recipes_id limit 10
         ) as matching
       where
-        array_to_string(match, ',') like all (array[${ingredientsText}]) limit 10
+        array_to_string(match, ',') like all (array[${ingredientsText}])
     )`
   }
 
   connectionPool
   .query(getRecipes)
   .then((data) => {
+    console.log(data)
     res.send(data.rows)
   })
   .catch((err)=>{
