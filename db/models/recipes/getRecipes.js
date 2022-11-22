@@ -1,4 +1,4 @@
-const connectionPool = require('../utils/connect.js')
+const connectionPool = require('../../utils/connect.js')
 
 
 
@@ -90,4 +90,4 @@ const getRecipes = (req, res, next) => {
   })
 }
 
-module.exports = {getRecipes}
+module.exports = getRecipes
