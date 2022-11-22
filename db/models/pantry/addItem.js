@@ -1,5 +1,5 @@
 const connectionPool = require('../../utils/connect.js')
-
+const {addItemStatement} = require('../statements/addPantryItem.js')
 const addItem = (req, res, next) => {
 
   let name = req.query.name;
@@ -11,35 +11,20 @@ const addItem = (req, res, next) => {
     text: `select exists (select 1 from users where email = ${email})`
   }
 
+  const addItemText = {
+    text: addItemStatement,
+    values: [name, date, category, email]
+  }
+
   if (name && date && category && email) {
-    console.log('yes')
     connectionPool.query(userExists)
     .then((data) => {
       if (data.rows[0].exists === false) {
         res.send('Please make sure you send a registered user')
       } else {
+        console.log(addItemText.values[3])
         connectionPool.
-        query(
-          `insert into pantry (
-            user_id, pantry_ingredient, expiry_date,
-            category
-          )
-          values
-            (
-              (
-                select
-                  id
-                from
-                  users
-                where
-                  email = ${email}
-              ),
-              ${name},
-              ${date},
-              ${category}
-            )
-          `
-        )
+        query(addItemText)
         .then((data) => {
           res.sendStatus(200)
         })
@@ -57,8 +42,6 @@ const addItem = (req, res, next) => {
   } else {
     res.send('Please make sure you are sending an ingredient name, a date, a category and a registered email')
   }
-
-  // res.send('addItem')
 }
 
 module.exports = addItem
