@@ -10,14 +10,6 @@ const port = process.env.PORT;
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-
-// get
 app.use('/', routes)
-
-// post
-
-// put
-
-// delete
 
 app.listen(port, ()=>{console.log(`listening to port ${port}`)})
