@@ -1,5 +1,5 @@
 const connectionPool = require('../../utils/connect.js')
-const {getItemStatement} = require('../statements/')
+const {getItemStatement} = require('../statements/getItem.js')
 
 const getItem = (req, res, next) => {
   const getItemOption = {
