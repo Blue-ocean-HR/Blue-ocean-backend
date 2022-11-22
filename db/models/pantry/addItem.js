@@ -1,5 +1,7 @@
 const connectionPool = require('../../utils/connect.js')
 const {addItemStatement} = require('../statements/addPantryItem.js')
+const {userExistsStatement} = require('../statements/addPantryItem.js')
+
 const addItem = (req, res, next) => {
 
   let name = req.query.name;
@@ -8,7 +10,8 @@ const addItem = (req, res, next) => {
   let email = req.query.email;
 
   const userExists = {
-    text: `select exists (select 1 from users where email = ${email})`
+    text: userExistsStatement,
+    values: [email]
   }
 
   const addItemText = {
@@ -20,7 +23,7 @@ const addItem = (req, res, next) => {
     connectionPool.query(userExists)
     .then((data) => {
       if (data.rows[0].exists === false) {
-        res.send('Please make sure you send a registered user')
+        res.send('Please make sure you send a registered/valid user')
       } else {
         console.log(addItemText.values[3])
         connectionPool.
