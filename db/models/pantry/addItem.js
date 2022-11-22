@@ -25,7 +25,7 @@ const addItem = (req, res, next) => {
       if (data.rows[0].exists === false) {
         res.send('Please make sure you send a registered/valid user')
       } else {
-        console.log(addItemText.values[3])
+
         connectionPool.
         query(addItemText)
         .then((data) => {
