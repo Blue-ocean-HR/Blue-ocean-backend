@@ -1,7 +1,4 @@
 ---PANTRY TABLE---
-DROP DATABASE IF EXISTS recipes;
-
-CREATE DATABASE recipes;
 
 DROP TABLE IF EXISTS pantry cascade;
 
