@@ -1,4 +1,7 @@
 ---PANTRY TABLE---
+DROP DATABASE IF EXISTS recipes;
+
+CREATE DATABASE recipes;
 
 DROP TABLE IF EXISTS pantry cascade;
 
@@ -47,7 +50,7 @@ CREATE TABLE recipes(
 
 COPY recipes (id, title, recipes_ingredients, directions, link)
 
-FROM '/Users/andrewarsenault/Desktop/BOcsvs/recipes1.csv'
+FROM '/Users/youngminko/hackreactor/recipes1.csv'
 
 DELIMITER ',' CSV QUOTE '"';
 
@@ -64,7 +67,7 @@ CREATE TABLE recipe_ingredients(
 
 COPY recipe_ingredients (ingredients_name, recipes_id)
 
-FROM '/Users/andrewarsenault/Desktop/BOcsvs/bo-ingredients.csv'
+FROM '/Users/youngminko/Desktop/bo-ingredients.csv'
 
 DELIMITER ',' CSV HEADER QUOTE '"';
 
