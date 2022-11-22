@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS users cascade;
 
 CREATE TABLE users(
     id BIGSERIAL NOT NULL,
-    email VARCHAR NOT NULL,
+    email VARCHAR UNIQUE NOT NULL,
     PRIMARY KEY(id)
 );
 

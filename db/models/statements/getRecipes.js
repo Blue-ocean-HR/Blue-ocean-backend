@@ -24,7 +24,7 @@ module.exports.getRecipesText = getRecipesText =
                 from
                   pantry
                 where
-                  user_id = (select id from users where email = $2)
+                  user_id = (select id from users where email = '$2')
                   and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient)
               )
           ),
@@ -42,12 +42,12 @@ module.exports.getRecipesText = getRecipesText =
                 from
                   pantry
                 where
-                  user_id = (select id from users where email = $2)
+                  user_id = (select id from users where email = '$2')
                   and recipe_ingredients.ingredients_name like ('%' || pantry_ingredient)
               )
           ),
         'favorited',
-        (select exists(select 1 from favorites where (select id from users where email = $2) = 1 and favorites.recipe_id = recipes.id))
+        (select exists(select 1 from favorites where (select id from users where email = '$2') = 1 and favorites.recipe_id = recipes.id))
           )
       )
     from
@@ -64,10 +64,10 @@ module.exports.getRecipesText = getRecipesText =
             from
               recipe_ingredients
             where
-              ingredients_name like any (array $1)
+              ingredients_name like any (array[$1])
             group by
-              recipes_id
+              recipes_id limit 10
           ) as matching
         where
-          array_to_string(match, ',') like all (array $1)
+          array_to_string(match, ',') like all (array[$1])
       )`
