@@ -1,11 +1,18 @@
 const connectionPool = require('../../utils/connect.js')
-
+const {getRecipesText} = require('../statements/getRecipes.js')
 
 
 const getRecipes = (req, res, next) => {
+  let email = 'drew'
+  // let ingredients = ['chicken', 'beef']
 
-  const statement = {
-    text: `select
+  // let transformedIngredients = ingredients.map(function(string) {
+  //   let transformed = `%${string}%`
+  //   return transformed;
+  // })
+
+  const getRecipes = {
+    text:   `select
     json_agg(
       json_build_object(
         'recipe_id',
@@ -80,7 +87,7 @@ const getRecipes = (req, res, next) => {
   }
 
   connectionPool
-  .query(statement)
+  .query(getRecipes)
   .then((data) => {
     res.send(data.rows)
   })
