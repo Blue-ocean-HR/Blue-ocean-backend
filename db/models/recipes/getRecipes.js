@@ -93,7 +93,7 @@ const getRecipes = (req, res, next) => {
   .query(getRecipes)
   .then((data) => {
     console.log(data)
-    res.send(data.rows)
+    res.send(data.rows[0].json_agg)
   })
   .catch((err)=>{
     console.log(err)
