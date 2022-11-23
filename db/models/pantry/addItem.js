@@ -4,10 +4,10 @@ const {userExistsStatement} = require('../statements/addPantryItem.js')
 
 const addItem = (req, res, next) => {
 
-  let name = req.query.name;
-  let date = req.query.date;
-  let category = req.query.category;
-  let email = req.query.email;
+  let name = req.body.name;
+  let date = req.body.date;
+  let category = req.body.category;
+  let email = req.body.email;
 
   const userExists = {
     text: userExistsStatement,

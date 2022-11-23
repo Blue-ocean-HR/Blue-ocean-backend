@@ -2,10 +2,9 @@ const connectionPool = require('../../utils/connect.js')
 const {updateItemStatement} = require('../statements/updateItem.js')
 
 const updateItem = (req, res, next) => {
-  console.log(req);
   let updateItemOption = {
     text: updateItemStatement,
-    values: [req.query.name, req.query.date, req.query.id]
+    values: [req.body.name, req.body.date, req.body.id]
   }
   connectionPool.query(updateItemOption)
   .then(data=>{
