@@ -22,6 +22,19 @@ CREATE TABLE favorites(
     PRIMARY KEY(id)
 );
 
+---GROCERY TABLE---
+
+DROP TABLE IF EXISTS grocery cascade;
+
+CREATE TABLE grocery(
+    id BIGSERIAL NOT NULL,
+    ingredients_name VARCHAR NOT NULL,
+    user_id BIGINT NOT NULL,
+    recipe_id BIGINT NOT NULL,
+    toggle BOOLEAN NOT NULL DEFAULT TRUE,
+    PRIMARY KEY(id)
+);
+
 ---USERS TABLE---
 
 DROP TABLE IF EXISTS users cascade;

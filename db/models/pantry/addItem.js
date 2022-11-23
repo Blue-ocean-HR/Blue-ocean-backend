@@ -3,7 +3,11 @@ const {addItemStatement} = require('../statements/addPantryItem.js')
 const {userExistsStatement} = require('../statements/addPantryItem.js')
 
 const addItem = (req, res, next) => {
+<<<<<<< HEAD
   //ask max to make sure these are the changes he wanted
+=======
+
+>>>>>>> 6ff57483e664a912100e22fc97b7ec4dedcfd505
   let name = req.body.name;
   let date = req.body.date;
   let category = req.body.category;
