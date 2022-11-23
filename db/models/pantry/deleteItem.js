@@ -4,7 +4,7 @@ const {deleteItemStatement} = require('../statements/deleteItem.js');
 const deleteItem = (req, res, next) => {
   const deleteItemOption = {
     text: deleteItemStatement,
-    values: [req.query.id]
+    values: [req.body.id]
   }
   connectionPool.query(deleteItemOption)
   .then(data=>{
