@@ -9,7 +9,7 @@ const getItem = (req, res, next) => {
   connectionPool.query(getItemOption)
   .then(data=>{
     console.log('fetched item', data);
-    res.status(200).send(data.rows);;
+    res.status(200).send(data.rows[0].results);
   })
 }
 
