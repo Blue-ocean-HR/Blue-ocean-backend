@@ -3,7 +3,6 @@ const {addItemStatement} = require('../statements/addPantryItem.js')
 const {userExistsStatement} = require('../statements/addPantryItem.js')
 
 const addItem = (req, res, next) => {
-
   let name = req.body.name;
   let date = req.body.date;
   let category = req.body.category;
@@ -48,7 +47,3 @@ const addItem = (req, res, next) => {
 }
 
 module.exports = addItem
-// Create: Takes in a name, date, category and email
-// Read: Takes in a email
-// Update: Takes in a IngredientName, ExpiryDate, pantryId
-// Destroy: Removes an Ingredient, Takes in an pantryId

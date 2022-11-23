@@ -22,6 +22,19 @@ CREATE TABLE favorites(
     PRIMARY KEY(id)
 );
 
+---GROCERY TABLE---
+
+DROP TABLE IF EXISTS grocery cascade;
+
+CREATE TABLE grocery(
+    id BIGSERIAL NOT NULL,
+    ingredients_name VARCHAR NOT NULL,
+    user_id BIGINT NOT NULL,
+    recipe_id BIGINT NOT NULL,
+    toggle BOOLEAN NOT NULL DEFAULT TRUE,
+    PRIMARY KEY(id)
+);
+
 ---USERS TABLE---
 
 DROP TABLE IF EXISTS users cascade;
@@ -47,7 +60,7 @@ CREATE TABLE recipes(
 
 COPY recipes (id, title, recipes_ingredients, directions, link)
 
-FROM '/Users/angelacarrasco/Documents/blue-ocean-data/recipes1.csv'
+FROM '/Users/andrewarsenault/Desktop/BOcsvs/recipes1.csv'
 
 DELIMITER ',' CSV QUOTE '"';
 
@@ -64,7 +77,7 @@ CREATE TABLE recipe_ingredients(
 
 COPY recipe_ingredients (ingredients_name, recipes_id)
 
-FROM '/Users/angelacarrasco/Documents/blue-ocean-data/bo-ingredients.csv'
+FROM '/Users/andrewarsenault/Desktop/BOcsvs/bo-ingredients.csv'
 
 DELIMITER ',' CSV HEADER QUOTE '"';
 
