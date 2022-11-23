@@ -50,7 +50,7 @@ const getFavoriteRecipe = (req, res, next)=> {
           )
       ),
     'favorited',
-    (select exists(select 1 from favorites where (select id from users where email = '${email}' ) = 1 and favorites.recipe_id = recipes.id))
+    (select exists(select 1 from favorites where exists (select id from users where email = '${email}' ) and favorites.recipe_id = recipes.id))
   )
 from
   recipes

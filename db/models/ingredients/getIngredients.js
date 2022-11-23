@@ -1,5 +1,5 @@
 const connectionPool = require('../../utils/connect.js');
-const {getIngredientsStatement} = require('../statemnets/getIngredients.js');
+const {getIngredientsStatement} = require('../statements/getIngredients.js');
 
 const getIngredients = (req, res) => {
   const getIngredientsOptions = {
