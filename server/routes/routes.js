@@ -19,7 +19,7 @@ const getFavoriteRecipe = require('../../db/models/favorite/getFavoriteRecipe.js
 router.get('/recipes', getRecipes);
 
 //Ingredients
-router.get('ingredients', getIngredients);
+router.get('/ingredients', getIngredients);
 
 //Pantry
 router.get('/pantry', getItem);
@@ -41,8 +41,6 @@ router.get('/favorite', getFavoriteRecipe)
 router.delete('/favorite', deleteFavorite)
 router.post('/favorite', favoriteRecipe);
 
-//ingredients
-router.get('/ingredients', getIngredients);
 module.exports = router;
 // Create: Takes in a name, date, category and email
 // Read: Takes in a email
