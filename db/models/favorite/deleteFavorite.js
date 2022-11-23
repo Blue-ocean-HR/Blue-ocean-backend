@@ -4,7 +4,7 @@ const {deleteFavoriteStatement} = require('../statements/deleteFavorite.js');
 const deleteFavorite = (req, res) => {
   const deleteFavoriteOption = {
     text: deleteFavoriteStatement,
-    values: [req.body.recipe_id, req.body.email];
+    values: [req.body.recipe_id, req.body.email]
   }
   connectionPool.query(deleteFavoriteOption)
   .then(data=>{
