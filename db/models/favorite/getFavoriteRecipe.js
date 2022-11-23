@@ -4,7 +4,7 @@ const getFavoriteRecipe = (req, res, next)=> {
   let email = req.query.email || 'guest'
   const getFavoriteRecipeOption = {
     text: `select
-    json_build_object(
+    json_agg(json_build_object(
       'recipe_id',
       id,
       'title',
@@ -51,7 +51,7 @@ const getFavoriteRecipe = (req, res, next)=> {
       ),
     'favorited',
     (select exists(select 1 from favorites where (select id from users where email = '${email}' ) = 1 and favorites.recipe_id = recipes.id))
-  )
+  )) as results
 from
   recipes
 where
@@ -68,7 +68,7 @@ where
   .query(getFavoriteRecipeOption)
   .then(data=>{
     console.log(data.rows);
-    res.status(200).send(data.rows);
+    res.status(200).send(data.rows[0].results);
   })
   .catch(err=>{
     console.log('error occured fetching favorites', err);
