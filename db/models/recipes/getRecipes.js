@@ -3,6 +3,7 @@ const {getRecipesText} = require('../statements/getRecipes.js')
 
 
 const getRecipes = (req, res, next) => {
+  console.log('THIS IS REQUEST BODY', req.body.ingredients)
   let email = req.query.email || 'guest'
   let ingredients = req.body.ingredients
 
