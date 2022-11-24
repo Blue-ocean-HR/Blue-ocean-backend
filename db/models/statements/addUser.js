@@ -1,1 +1,5 @@
-module.exports.addUserText = `insert into users (email) values ($1);`
+module.exports.addUserText = `
+insert into users (email)
+values
+  ($1);
+`

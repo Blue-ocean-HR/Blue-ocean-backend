@@ -12,7 +12,6 @@ const getRecipes = (req, res, next) => {
   })
 
   let ingredientsText = `${transformedIngredients}`
-  console.log(ingredientsText)
 
   const getRecipes = {
     text: `select

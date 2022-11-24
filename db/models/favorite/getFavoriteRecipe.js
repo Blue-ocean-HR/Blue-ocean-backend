@@ -6,7 +6,7 @@ const getFavoriteRecipe = (req, res, next)=> {
 
   const getFavorites = {
     text: getFavoriteRecipeText,
-    values: [email]
+    values: [email, liame]
   }
 
   connectionPool

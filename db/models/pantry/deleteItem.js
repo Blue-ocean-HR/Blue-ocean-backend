@@ -2,10 +2,12 @@ const connectionPool = require('../../utils/connect.js');
 const {deleteItemStatement} = require('../statements/deleteItem.js');
 
 const deleteItem = (req, res, next) => {
+
   const deleteItemOption = {
     text: deleteItemStatement,
     values: [req.body.id]
   }
+
   connectionPool.query(deleteItemOption)
   .then(data=>{
     console.log('delete item complete');
