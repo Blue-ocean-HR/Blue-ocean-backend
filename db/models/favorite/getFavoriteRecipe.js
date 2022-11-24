@@ -12,7 +12,6 @@ const getFavoriteRecipe = (req, res, next)=> {
   connectionPool
   .query(getFavorites)
   .then(data=>{
-    console.log(data.rows);
     res.status(200).send(data.rows[0].results);
   })
   .catch(err=>{
