@@ -1,9 +1,8 @@
 const connectionPool = require('../../utils/connect.js')
-const {getRecipesText} = require('../statements/getRecipes.js')
-
 
 const getRecipes = (req, res, next) => {
-  console.log('THIS IS REQUEST BODY', req.body.ingredients)
+  let page = req.query.page || 1
+  let count = req.query.count || 5
   let email = req.query.email || 'guest'
   let ingredients = req.body.ingredients
 
@@ -13,7 +12,6 @@ const getRecipes = (req, res, next) => {
   })
 
   let ingredientsText = `${transformedIngredients}`
-  console.log(ingredientsText)
 
   const getRecipes = {
     text: `select
@@ -83,7 +81,7 @@ const getRecipes = (req, res, next) => {
           where
             ingredients_name like any (array[${ingredientsText}])
           group by
-            recipes_id limit 10
+            recipes_id limit ${count} offset((${count} * ${page}) - ${count})
         ) as matching
       where
         array_to_string(match, ',') like all (array[${ingredientsText}])

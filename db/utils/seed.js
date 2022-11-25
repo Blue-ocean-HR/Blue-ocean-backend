@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path');
 const connectionPool = require('./connect.js')
 
-const populate = fs.readFileSync(path.resolve(__dirname, '../finalSchemaBO.sql')).toString();
+const populate = fs.readFileSync(path.resolve(__dirname, '../blueOcean.sql')).toString();
 
 connectionPool.connect((err, client, release) => {
   if (err) {

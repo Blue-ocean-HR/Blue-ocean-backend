@@ -2,9 +2,11 @@ const connectionPool = require('../../utils/connect.js');
 const {getIngredientsStatement} = require('../statements/getIngredients.js');
 
 const getIngredients = (req, res) => {
+
   const getIngredientsOptions = {
     text: getIngredientsStatement,
   }
+
   connectionPool.query(getIngredientsOptions)
   .then(data=>{
     console.log('fetched ingredients by their frequncey', data.rows);
