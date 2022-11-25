@@ -62,7 +62,7 @@ const getRecipes = (req, res, next) => {
             )
         ),
       'favorited',
-      (select exists(select 1 from favorites where (select id from users where email = '${email}') = 1 and favorites.recipe_id = recipes.id))
+      (select exists(select 1 from favorites where (select id from users where email = '${email}') = user_id and favorites.recipe_id = recipes.id))
         )
     )
   from
