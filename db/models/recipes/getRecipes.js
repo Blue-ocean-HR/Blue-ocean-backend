@@ -4,7 +4,7 @@ const getRecipes = (req, res, next) => {
   let page = req.query.page || 1
   let count = req.query.count || 5
   let email = req.query.email || 'guest'
-  let ingredients = req.body.ingredients
+  let ingredients = req.body.ingredients || [""]
 
   let transformedIngredients = ingredients.map(function(string) {
     let transformed = `'%${string}%'`
@@ -91,7 +91,6 @@ const getRecipes = (req, res, next) => {
   connectionPool
   .query(getRecipes)
   .then((data) => {
-    console.log(data)
     res.send(data.rows[0].json_agg)
   })
   .catch((err)=>{
