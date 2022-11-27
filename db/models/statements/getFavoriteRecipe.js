@@ -46,7 +46,7 @@ module.exports.getFavoriteRecipeText =  `
           )
       ),
     'favorited',
-    (select exists(select 1 from favorites where (select id from users where email = $1 ) = 1 and favorites.recipe_id = recipes.id))
+    (select exists(select 1 from favorites where (select id from users where email = $1 ) = favorites.user_id and favorites.recipe_id = recipes.id))
     )) as results
     from
     recipes
