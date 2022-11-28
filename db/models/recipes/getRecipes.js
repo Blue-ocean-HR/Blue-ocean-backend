@@ -2,7 +2,7 @@ const connectionPool = require('../../utils/connect.js')
 
 const getRecipes = (req, res, next) => {
   let page = req.query.page || 1
-  let count = req.query.count || 5
+  let count = req.query.count || 20
   let email = req.query.email || 'guest'
   let ingredients = req.body.ingredients || [""]
 
