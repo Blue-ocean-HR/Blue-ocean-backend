@@ -1,12 +1,10 @@
-# WasteNot-Backend
+# WasteNot Backend
 
 
 ## Table of Contents
 - [Tech Stack](#tech-stack)
 - [Schema](#schema)
-- [Product Features](#product-features)
 - [Getting Started](#getting-started)
-- [Installation](#installation)
 - [Documentation](#documentation)
 - [Contributors](#contributors)
 
@@ -76,6 +74,9 @@ DELIMITER ',' CSV QUOTE '"';
 
 ![image](https://user-images.githubusercontent.com/24787921/204452255-1cb74947-ce50-4721-a80d-e5f36fe1cb26.png)
 
+### Starting the server
+
+1. From the root directory `npm run server-dev`
 
 ## Documentation
 ### API
